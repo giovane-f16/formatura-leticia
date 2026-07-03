@@ -1,0 +1,7 @@
+export function CallToAction({ children, href, variant = 'primary' }) {
+  return (
+    <a className={`button button-${variant}`} href={href}>
+      {children}
+    </a>
+  );
+}

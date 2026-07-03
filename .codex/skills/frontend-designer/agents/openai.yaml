@@ -1,0 +1,4 @@
+interface:
+  display_name: "Front End Designer"
+  short_description: "Design UX/UI responsivo para React"
+  default_prompt: "Use $frontend-designer para definir uma interface React responsiva e polida a partir da especificacao atual."
