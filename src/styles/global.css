@@ -27,7 +27,27 @@
 html {
   min-width: 320px;
   background: var(--background);
+  scrollbar-color: var(--accent) var(--card);
+  scrollbar-width: thin;
   scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--card);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 3px solid var(--card);
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--accent), var(--primary));
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--foreground), var(--accent));
 }
 
 body {
