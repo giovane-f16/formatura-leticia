@@ -603,20 +603,35 @@ p {
   position: relative;
   z-index: 1;
   display: flex;
-  width: min(840px, 100%);
-  max-height: 86vh;
+  width: min(1080px, 100%);
+  max-height: 92vh;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
   margin: 0;
+  cursor: grab;
+  opacity: var(--drag-opacity, 1);
+  touch-action: pan-y;
+  transform: translateX(var(--drag-offset, 0));
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+  user-select: none;
+}
+
+.lightbox-content-dragging {
+  cursor: grabbing;
+  transition: none;
 }
 
 .lightbox-content img {
-  max-height: 72vh;
+  max-width: 100%;
+  max-height: 82vh;
   width: auto;
   border-radius: var(--radius);
   object-fit: contain;
   box-shadow: var(--shadow);
+  pointer-events: none;
 }
 
 .lightbox-content figcaption {

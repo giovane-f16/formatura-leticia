@@ -1,9 +1,63 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { siteContent } from '../data/siteContent.js';
 
 export function Photos() {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartRef = useRef(null);
   const activePhoto = activeIndex === null ? null : siteContent.photos[activeIndex];
+
+  const goToPhoto = (direction) => {
+    setActiveIndex((currentIndex) => {
+      if (currentIndex === null) {
+        return currentIndex;
+      }
+
+      return (currentIndex + direction + siteContent.photos.length) % siteContent.photos.length;
+    });
+  };
+
+  const resetDrag = () => {
+    dragStartRef.current = null;
+    setDragOffset(0);
+    setIsDragging(false);
+  };
+
+  const handleDragStart = (event) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) {
+      return;
+    }
+
+    event.currentTarget.setPointerCapture(event.pointerId);
+    dragStartRef.current = event.clientX;
+    setIsDragging(true);
+  };
+
+  const handleDragMove = (event) => {
+    if (dragStartRef.current === null) {
+      return;
+    }
+
+    const nextOffset = event.clientX - dragStartRef.current;
+    setDragOffset(Math.max(-180, Math.min(180, nextOffset)));
+  };
+
+  const handleDragEnd = () => {
+    if (dragStartRef.current === null) {
+      return;
+    }
+
+    if (dragOffset <= -80) {
+      goToPhoto(1);
+    }
+
+    if (dragOffset >= 80) {
+      goToPhoto(-1);
+    }
+
+    resetDrag();
+  };
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -12,11 +66,11 @@ export function Photos() {
       }
 
       if (event.key === 'ArrowRight' && activeIndex !== null) {
-        setActiveIndex((activeIndex + 1) % siteContent.photos.length);
+        goToPhoto(1);
       }
 
       if (event.key === 'ArrowLeft' && activeIndex !== null) {
-        setActiveIndex((activeIndex - 1 + siteContent.photos.length) % siteContent.photos.length);
+        goToPhoto(-1);
       }
     };
 
@@ -64,15 +118,23 @@ export function Photos() {
           </button>
           <button
             className="lightbox-nav lightbox-prev"
-            onClick={() =>
-              setActiveIndex((activeIndex - 1 + siteContent.photos.length) % siteContent.photos.length)
-            }
+            onClick={() => goToPhoto(-1)}
             type="button"
           >
             ‹
           </button>
-          <figure className="lightbox-content">
-            <img src={activePhoto.src} alt={activePhoto.alt} />
+          <figure
+            className={isDragging ? 'lightbox-content lightbox-content-dragging' : 'lightbox-content'}
+            onPointerCancel={resetDrag}
+            onPointerDown={handleDragStart}
+            onPointerMove={handleDragMove}
+            onPointerUp={handleDragEnd}
+            style={{
+              '--drag-offset': `${dragOffset}px`,
+              '--drag-opacity': `${1 - Math.min(Math.abs(dragOffset) / 360, 0.28)}`,
+            }}
+          >
+            <img src={activePhoto.src} alt={activePhoto.alt} draggable="false" />
             <figcaption>
               <strong>{activePhoto.title}</strong>
               <span>{activePhoto.caption}</span>
@@ -80,7 +142,7 @@ export function Photos() {
           </figure>
           <button
             className="lightbox-nav lightbox-next"
-            onClick={() => setActiveIndex((activeIndex + 1) % siteContent.photos.length)}
+            onClick={() => goToPhoto(1)}
             type="button"
           >
             ›
