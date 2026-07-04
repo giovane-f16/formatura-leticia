@@ -24,6 +24,16 @@ const navIcons = {
       <path d="M18.5 16.5h.01" />
     </svg>
   ),
+  '/qrcode': (
+    <svg aria-hidden="true" viewBox="0 0 24 24">
+      <rect x="4" y="4" width="6" height="6" rx="1" />
+      <rect x="14" y="4" width="6" height="6" rx="1" />
+      <rect x="4" y="14" width="6" height="6" rx="1" />
+      <path d="M14 14h2v2h-2z" />
+      <path d="M18 14h2v6h-4v-2" />
+      <path d="M14 18v2" />
+    </svg>
+  ),
 };
 
 export function Navigation({ items, siteName }) {

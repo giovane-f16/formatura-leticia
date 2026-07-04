@@ -704,6 +704,63 @@ p {
   right: 1rem;
 }
 
+.qrcode-page {
+  display: grid;
+  min-height: 100vh;
+  align-items: center;
+  padding: 7rem 0 5rem;
+  background:
+    radial-gradient(ellipse 70% 55% at 72% 42%, rgba(159, 0, 0, 0.18), transparent 62%),
+    var(--background);
+}
+
+.qrcode-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(280px, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5rem);
+}
+
+.qrcode-copy {
+  max-width: 34rem;
+}
+
+.qrcode-copy h1 {
+  color: var(--foreground);
+  font-size: clamp(2.8rem, 7vw, 5.6rem);
+  font-weight: 400;
+}
+
+.qrcode-copy p:not(.figma-kicker) {
+  margin: 1.25rem 0 2rem;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.qrcode-display {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  margin: 0;
+}
+
+.qrcode-display img {
+  width: min(520px, 100%);
+  aspect-ratio: 1;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.qrcode-display figcaption {
+  color: var(--accent);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.15rem;
+  text-align: center;
+}
+
 .game-page {
   display: grid;
   min-height: 100vh;
@@ -885,6 +942,12 @@ p {
   .masonry-gallery {
     column-count: 2;
   }
+
+  .qrcode-layout {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
 }
 
 @media (max-width: 640px) {
@@ -964,6 +1027,14 @@ p {
 
   .lightbox-next {
     right: 1rem;
+  }
+
+  .qrcode-page {
+    padding-top: 6rem;
+  }
+
+  .qrcode-display img {
+    width: min(100%, 360px);
   }
 
   .game-stage {

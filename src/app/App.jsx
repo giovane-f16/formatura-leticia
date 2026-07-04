@@ -2,11 +2,13 @@ import { Layout } from '../components/Layout.jsx';
 import { Home } from '../pages/Home.jsx';
 import { Photos } from '../pages/Photos.jsx';
 import { Game } from '../pages/Game.jsx';
+import { QrCode } from '../pages/QrCode.jsx';
 
 const routes = {
   '/': Home,
   '/fotos': Photos,
   '/jogo': Game,
+  '/qrcode': QrCode,
 };
 
 function getCurrentPage() {
