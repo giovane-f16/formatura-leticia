@@ -47,7 +47,7 @@ e mesmo assim chegou lá.`,
     {
       icon: '★',
       title: 'Agora é só festa',
-      text: 'Você sobreviveu aos trabalhos, provas, aos estágios e a tudo que não foi simples. Agora é hora de celebrar muito, porque essa conquista é sua por inteiro.',
+      text: 'Após passar por tanto sufoco, agora é hora de celebrar muito, porque essa conquista é sua por inteira.',
       author: 'Só festinha no AP',
     },
   ],
