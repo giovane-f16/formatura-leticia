@@ -1,9 +1,15 @@
-const graduationPhotos = Array.from({ length: 36 }, (_, index) => {
-  const number = String(index + 1).padStart(2, '0');
+const graduationPhotoPaths = Object.keys(
+  import.meta.glob('/public/photos/formatura/photo-*.jpeg', { eager: true }),
+).sort((firstPath, secondPath) =>
+  firstPath.localeCompare(secondPath, undefined, { numeric: true }),
+);
+
+const graduationPhotos = graduationPhotoPaths.map((path, index) => {
+  const fileName = path.split('/').at(-1);
 
   return {
-    src: `/photos/formatura/photo-${number}.jpeg`,
-    thumb: `/photos/formatura/photo-${number}.jpeg`,
+    src: `/photos/formatura/${fileName}`,
+    thumb: `/photos/formatura/${fileName}`,
     alt: `Foto ${index + 1} da formatura da Letícia`,
     title: `Momento ${index + 1}`,
     caption: 'Um registro especial da formatura da Letícia.',
